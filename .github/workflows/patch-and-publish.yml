@@ -1,0 +1,20 @@
+name: ROS2/Webots image
+run-name: patch and publish ROS2/Webots image
+on: [push]
+jobs:
+  Build-and-publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Setup Docker
+        uses: docker/setup-docker-action@v5
+      - name: Check out repository code
+        uses: actions/checkout@v5
+      - name: Checkout original repo
+        run: "echo \"TODO: get specific commit from original repo\""
+      - name: Apply patch
+        run: "echo \"TODO: apply patch\""
+      - name: build
+        run: "echo \"TODO: publish to Docker Hub\""
+      - name: publish
+        run: "echo \"TODO: publish to Docker Hub\""
+

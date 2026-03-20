@@ -1,0 +1,116 @@
+0a1,15
+> ARG BASE_IMAGE=nvidia/cuda:11.8.0-base-ubuntu22.04
+> FROM ${BASE_IMAGE} AS downloader
+> 
+> # Determine Webots version to be used and set default argument
+> ARG WEBOTS_VERSION=R2025a
+> ARG WEBOTS_PACKAGE_PREFIX=
+> 
+> # Disable dpkg/gdebi interactive dialogs
+> ENV DEBIAN_FRONTEND=noninteractive
+> 
+> RUN apt-get update && apt-get install --yes wget bzip2 && rm -rf /var/lib/apt/lists/ && \
+>     wget https://github.com/cyberbotics/webots/releases/download/$WEBOTS_VERSION/webots-$WEBOTS_VERSION-x86-64$WEBOTS_PACKAGE_PREFIX.tar.bz2 && \
+>     tar xjf webots-*.tar.bz2 && rm webots-*.tar.bz2
+> 
+> 
+21c36
+< 	&& apt-get dist-upgrade -y \
+---
+>         && apt-get dist-upgrade -y \
+39,43c54,58
+< 	&& apt-get install -y iputils-ping \ 
+< 	&& apt-get install -y apt-transport-https ca-certificates \
+< 	&& apt-get install -y openssh-server python3-pip exuberant-ctags \
+< 	&& apt-get install -y git vim tmux nano htop sudo curl wget gnupg2 \
+< 	&& apt-get install -y bash-completion \
+---
+>     && apt-get install -y iputils-ping \ 
+>     && apt-get install -y apt-transport-https ca-certificates \
+>     && apt-get install -y openssh-server python3-pip exuberant-ctags \
+>     && apt-get install -y git vim tmux nano htop sudo curl wget gnupg2 \
+>     && apt-get install -y bash-completion \
+94,112c109,127
+< use-theme-colors=false\n\
+< foreground-color="#00FF00"\n\
+< background-color="#000000"\n\
+< use-system-font=false\n\
+< font="CaskaydiaCove Nerd Font Mono 11"\n\
+< \n\
+< [org.gnome.mutter]\n\
+< dynamic-workspaces=false\n\
+< \n\
+< [org.gnome.desktop.wm.preferences]\n\
+< num-workspaces=1\n\
+< \n\
+< [com.ubuntu.update-notifier]\n\
+< no-repo-setup-error-notification=true\n\
+< regular-auto-launch-interval=999999\n\
+< \n\
+< [com.ubuntu.update-manager]\n\
+< launch-count=0\n\
+< first-run=false\n' > /usr/share/glib-2.0/schemas/99_gnome-terminal-defaults.gschema.override && \
+---
+>     use-theme-colors=false\n\
+>     foreground-color="#00FF00"\n\
+>     background-color="#000000"\n\
+>     use-system-font=false\n\
+>     font="CaskaydiaCove Nerd Font Mono 11"\n\
+>     \n\
+>     [org.gnome.mutter]\n\
+>     dynamic-workspaces=false\n\
+>     \n\
+>     [org.gnome.desktop.wm.preferences]\n\
+>     num-workspaces=1\n\
+>     \n\
+>     [com.ubuntu.update-notifier]\n\
+>     no-repo-setup-error-notification=true\n\
+>     regular-auto-launch-interval=999999\n\
+>     \n\
+>     [com.ubuntu.update-manager]\n\
+>     launch-count=0\n\
+>     first-run=false\n' > /usr/share/glib-2.0/schemas/99_gnome-terminal-defaults.gschema.override && \
+145a161,175
+> # Disable dpkg/gdebi interactive dialogs
+> ENV DEBIAN_FRONTEND=noninteractive
+> 
+> # Install Webots runtime dependencies
+> RUN apt-get update && apt-get install --yes wget xvfb locales && rm -rf /var/lib/apt/lists/ && \
+>     wget https://raw.githubusercontent.com/cyberbotics/webots/master/scripts/install/linux_runtime_dependencies.sh && \
+>     chmod +x linux_runtime_dependencies.sh && ./linux_runtime_dependencies.sh && rm ./linux_runtime_dependencies.sh && rm -rf /var/lib/apt/lists/
+> 
+> # Install Webots
+> WORKDIR /usr/local
+> COPY --from=downloader /webots /usr/local/webots/
+> ENV QTWEBENGINE_DISABLE_SANDBOX=1
+> ENV WEBOTS_HOME /usr/local/webots
+> ENV PATH /usr/local/webots:${PATH}
+> 
+208,218c238,248
+< unset SESSION_MANAGER\n\
+< unset DBUS_SESSION_BUS_ADDRESS\n\
+< export XDG_CURRENT_DESKTOP="GNOME-Flashback:GNOME"\n\
+< export GNOME_SHELL_SESSION_MODE="ubuntu"\n\
+< export XDG_RUNTIME_DIR=/tmp/runtime-tigervnc\n\
+< [ -x /etc/vnc/xstartup ] && exec /etc/vnc/xstartup\n\
+< [ -r $HOME/.Xresources ] && xrdb $HOME/.Xresources\n\
+< xsetroot -solid grey\n\
+< vncconfig -iconic &\n\
+< dbus-launch --exit-with-session gnome-session --session=gnome-flashback-metacity\n\
+< ' > $HOME/.vnc/xstartup && chmod +x $HOME/.vnc/xstartup
+---
+>     unset SESSION_MANAGER\n\
+>     unset DBUS_SESSION_BUS_ADDRESS\n\
+>     export XDG_CURRENT_DESKTOP="GNOME-Flashback:GNOME"\n\
+>     export GNOME_SHELL_SESSION_MODE="ubuntu"\n\
+>     export XDG_RUNTIME_DIR=/tmp/runtime-tigervnc\n\
+>     [ -x /etc/vnc/xstartup ] && exec /etc/vnc/xstartup\n\
+>     [ -r $HOME/.Xresources ] && xrdb $HOME/.Xresources\n\
+>     xsetroot -solid grey\n\
+>     vncconfig -iconic &\n\
+>     dbus-launch --exit-with-session gnome-session --session=gnome-flashback-metacity\n\
+>     ' > $HOME/.vnc/xstartup && chmod +x $HOME/.vnc/xstartup
+250c280
+< 
+---
+> RUN sudo apt update && sudo apt-get install -y ros-jazzy-webots-ros2
