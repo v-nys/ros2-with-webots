@@ -9,12 +9,17 @@ jobs:
         uses: docker/setup-docker-action@v5
       - name: Check out repository code
         uses: actions/checkout@v5
+        with:
+          path: patchrepo
       - name: Checkout original repo
-        run: "echo \"TODO: get specific commit from original repo\""
+        uses: actions/checkout@v5
+        with:
+          repository: "PXLAIRobotics/ROS2_Development/Environment"
+          path: originalrepo
       - name: Apply patch
-        run: "echo \"TODO: apply patch\""
+        run: "patch patchrepo/add_webots_bridge.patch originalrepo/pxl_ros2_jazzy_vnc_image/Dockerfile -o originalrepo/pxl_ros2_jazzy_vnc_image/Dockerfile"
       - name: build
-        run: "echo \"TODO: publish to Docker Hub\""
+        run: "cd originalrepo; pxl_ros2_jazzy_vnc_image; sh 01_build_image.sh"
       - name: publish
         run: "echo \"TODO: publish to Docker Hub\""
 
