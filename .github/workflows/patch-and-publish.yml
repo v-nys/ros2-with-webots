@@ -12,12 +12,13 @@ jobs:
         with:
           path: patchrepo
       - name: Checkout original repo
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
         with:
           repository: "PXLAIRobotics/ROS2_Development_Environment"
           path: originalrepo
+          ref: c1792f2
       - name: Apply patch
-        run: "patch patchrepo/add_webots_bridge.patch originalrepo/pxl_ros2_jazzy_vnc_image/Dockerfile -o originalrepo/pxl_ros2_jazzy_vnc_image/Dockerfile"
+        run: "patch originalrepo/pxl_ros2_jazzy_vnc_image/Dockerfile -o originalrepo/pxl_ros2_jazzy_vnc_image/Dockerfile patchrepo/add_webots_bridge.patch"
       - name: build
         run: "cd originalrepo; pxl_ros2_jazzy_vnc_image; sh 01_build_image.sh"
       - name: publish
