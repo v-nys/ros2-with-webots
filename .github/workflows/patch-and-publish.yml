@@ -20,6 +20,6 @@ jobs:
       - name: Apply patch
         run: "patch originalrepo/pxl_ros2_jazzy_vnc_image/Dockerfile patchrepo/add_webots_bridge.patch"
       - name: build
-        run: "cd originalrepo; pxl_ros2_jazzy_vnc_image; sh 01_build_image.sh"
+        run: "cd originalrepo/pxl_ros2_jazzy_vnc_image; sh 01_build_image.sh"
       - name: publish
         run: 'echo "TODO: publish to Docker Hub"'
