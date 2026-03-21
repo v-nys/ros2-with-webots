@@ -29,4 +29,4 @@ jobs:
       - name: Rename
         run: "docker tag pxl_ros2_jazzy_vnc:latest ${{ vars.DOCKERHUB_USERNAME }}:pxl_ros2_jazzy_vnc"
       - name: Publish
-        run: "docker push ${{ vars.DOCKERHUB_USERNAME }}:pxl_ros2_jazzy_vnc:latest"
+        run: "docker push ${{ vars.DOCKERHUB_USERNAME }}:pxl_ros2_jazzy_vnc"
