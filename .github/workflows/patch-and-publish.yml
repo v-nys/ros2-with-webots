@@ -14,12 +14,11 @@ jobs:
       - name: Checkout original repo
         uses: actions/checkout@v5
         with:
-          repository: "PXLAIRobotics/ROS2_Development/Environment"
+          repository: "PXLAIRobotics/ROS2_Development_Environment"
           path: originalrepo
       - name: Apply patch
         run: "patch patchrepo/add_webots_bridge.patch originalrepo/pxl_ros2_jazzy_vnc_image/Dockerfile -o originalrepo/pxl_ros2_jazzy_vnc_image/Dockerfile"
       - name: build
         run: "cd originalrepo; pxl_ros2_jazzy_vnc_image; sh 01_build_image.sh"
       - name: publish
-        run: "echo \"TODO: publish to Docker Hub\""
-
+        run: 'echo "TODO: publish to Docker Hub"'
