@@ -5,7 +5,7 @@ De patch file bevat de wijzigingen in kwestie. Zie Github Actions om te begrijpe
 Om het eindresultaat te runnen:
 
 - clone de originele repo van PXL ergens
-- pas `pxl_ros2_jazzy_vnc_image/02_run_container` aan door `${{ vars.DOCKERHUB_USERNAME }}/` toe te voegen voor de imagenaam
+- pas `pxl_ros2_jazzy_vnc_image/02_run_container` aan door `${{ vars.DOCKERHUB_USERNAME }}/` toe te voegen voor de imagenaam (check Github Actions voor de concrete waarde en vergeet de `/` niet!)
 - run dan script het script
   - laat de terminal open staan zo lang je gebruik wil maken van de container
   - dit zou een Docker container moeten starten die luistert op poort 5901
