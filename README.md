@@ -2,10 +2,20 @@ Deze patch voegt Webots met ROS-integratie toe aan [een image van PXL](https://g
 
 De patch file bevat de wijzigingen in kwestie. Zie Github Actions om te begrijpen hoe hij wordt toegepast.
 
+Om een patch te maken:
+
+- start van de Dockerfile uit de originele repo
+- pas eventueel de patch uit deze repo toe om voort te bouwen op wat hier staat
+- doe verdere aanpassingen
+- check build door script "01_build_image.sh" uit te voeren
+- kopieer de Dockerfile, bijvoorbeeld naar AltDockerfile
+- `git restore Dockerfile`
+- `diff Dockerfile AlterDockerfile > add_webots_bridge.patch` (en verplaats de patch naar deze repository)
+
 Om het eindresultaat te runnen:
 
 - clone de originele repo van PXL ergens
-- pas `pxl_ros2_jazzy_vnc_image/02_run_container` aan door `${{ vars.DOCKERHUB_USERNAME }}/` toe te voegen voor de imagenaam (check Github Actions voor de concrete waarde en vergeet de `/` niet!)
+- pas "pxl_ros2_jazzy_vnc_image/02_run_container.sh" aan door `vincentnys/` toe te voegen voor de imagenaam (check Github Actions voor de concrete waarde en vergeet de `/` niet!)
 - run dan script het script
   - laat de terminal open staan zo lang je gebruik wil maken van de container
   - dit zou een Docker container moeten starten die luistert op poort 5901

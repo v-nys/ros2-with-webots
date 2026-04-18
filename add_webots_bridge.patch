@@ -17,7 +17,7 @@
 21c36
 < 	&& apt-get dist-upgrade -y \
 ---
->         && apt-get dist-upgrade -y \
+>     && apt-get dist-upgrade -y \
 39,43c54,58
 < 	&& apt-get install -y iputils-ping \ 
 < 	&& apt-get install -y apt-transport-https ca-certificates \
@@ -110,7 +110,13 @@
 >     vncconfig -iconic &\n\
 >     dbus-launch --exit-with-session gnome-session --session=gnome-flashback-metacity\n\
 >     ' > $HOME/.vnc/xstartup && chmod +x $HOME/.vnc/xstartup
-250c280
+250c280,286
 < 
 ---
 > RUN sudo apt update && sudo apt-get install -y ros-jazzy-webots-ros2
+> RUN wget -qO - https://gitlab.com/paulcarroty/vscodium-deb-rpm-repo/raw/master/pub.gpg \
+>     | gpg --dearmor \
+>     | sudo dd of=/usr/share/keyrings/vscodium-archive-keyring.gpg
+> RUN echo 'deb [arch=amd64,arm64 signed-by=/usr/share/keyrings/vscodium-archive-keyring.gpg] https://download.vscodium.com/debs vscodium main' \
+>     | sudo tee /etc/apt/sources.list.d/vscodium.list
+> RUN sudo apt update && sudo apt install codium
