@@ -17,6 +17,8 @@ jobs:
           repository: "PXLAIRobotics/ROS2_Development_Environment"
           path: originalrepo
           ref: c1792f28dd3cfe8e910f2e9e230f5a54ba7b05b2
+      - name: Copy modified asset
+        run: "cp patchrepo/utils.py originalrepo/pxl_ros2_jazzy_vnc_image/utils.py"
       - name: Apply patch
         run: "patch originalrepo/pxl_ros2_jazzy_vnc_image/Dockerfile patchrepo/add_webots_bridge.patch"
       - name: build

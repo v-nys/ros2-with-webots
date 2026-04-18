@@ -110,7 +110,7 @@
 >     vncconfig -iconic &\n\
 >     dbus-launch --exit-with-session gnome-session --session=gnome-flashback-metacity\n\
 >     ' > $HOME/.vnc/xstartup && chmod +x $HOME/.vnc/xstartup
-250c280,286
+250c280,287
 < 
 ---
 > RUN sudo apt update && sudo apt-get install -y ros-jazzy-webots-ros2
@@ -120,3 +120,4 @@
 > RUN echo 'deb [arch=amd64,arm64 signed-by=/usr/share/keyrings/vscodium-archive-keyring.gpg] https://download.vscodium.com/debs vscodium main' \
 >     | sudo tee /etc/apt/sources.list.d/vscodium.list
 > RUN sudo apt update && sudo apt install codium
+> COPY utils.py /opt/ros/jazzy/lib/python3.12/site-packages/webots_ros2_driver/utils.py
